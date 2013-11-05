@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+#squeel
+gem 'squeel'
+
+#Twitter Bootstrap
+gem 'bootstrap-sass'
+
 #fileupload
 gem 'jquery-fileupload-rails'
 
