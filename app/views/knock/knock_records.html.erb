@@ -6,20 +6,34 @@
   <tr><td colspan="4" style="text-align: left;padding-left: 10%">年/月:</td></tr>
   <tr>
     <td style="width: 10%">日期</td>
-    <td style="width: 25%">上班時間</td>
-    <td style="width: 25%">下班時間</td>
-    <td style="width: 40%">備註</td>
+    <td style="width: 20%">上班時間</td>
+    <td style="width: 20%">下班時間</td>
+    <td style="width: 50%">備註</td>
   </tr>
 
 
-  <% @day.times do |i| %>
-  <tr>
-    <td><%= i + 1%></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <%end%>
+  <% @temp.each do |element| %>
+      <tr>
+        <td><%= element.day %></td>
+        <td>
+          <% if !element.clock_in.blank? %>
+              <%= element.clock_in.strftime("%H:%M") %>
+          <%end %>
+        </td>
+        <td>
+          <% if !element.clock_out.blank? %>
+              <%= element.clock_out.strftime("%H:%M") %>
+          <% end %>
+        </td>
+        <td>
+          <% if !element.description.blank? %>
+              <%= element.description %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+
+
 
   <tr>
     <td colspan="2"></td>

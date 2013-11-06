@@ -14,6 +14,7 @@ class Knock < ActiveRecord::Base
       knock = Knock.new
       knock.clock_in = Time.now
       knock.user_id = uid
+      knock.day = Time.now.day
       knock.description = description
       knock.save
     else
@@ -58,8 +59,8 @@ class Knock < ActiveRecord::Base
   def self.m_get_month_knocks(uid, month)
     day = m_days_in_month(month)
 
-    time_start = Time.now.strftime("%Y-"+ month + "-1")
-    time_end = Time.now.strftime("%Y-" + month + "-" + day)
+    time_start = Time.now.strftime("%Y-") + month.to_s + "-1"
+    time_end = Time.now.strftime("%Y-")  + month.to_s + "-" + day.to_s
 
     if uid.blank?
       find(:all)

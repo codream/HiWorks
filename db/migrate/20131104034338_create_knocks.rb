@@ -5,6 +5,8 @@ class CreateKnocks < ActiveRecord::Migration
       t.datetime :clock_in
       t.datetime :clock_out
       t.string   :description
+      t.integer  :limit => 1
+      t.integer  :day, :limit => 1
 
       t.timestamps
     end

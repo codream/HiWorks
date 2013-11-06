@@ -1,5 +1,6 @@
 class KnockController < ApplicationController
-  before_action :auth_user, :only => [ :clock_in, :clock_out, :modify_clock_in, :knock_records]
+  #before_action :auth_user_render_template, :only => [ :clock_in, :clock_out, :modify_clock_in, :knock_records]
+  before_action :auth_user_render_json, :only => [ :clock_in, :clock_out]
 
   def index
 
@@ -12,75 +13,85 @@ class KnockController < ApplicationController
   end
 
   def clock_in
+
     description =  params[:description]
     @knock = Knock.m_clock_in(current_user.id, description)
 
-
-
-
-    #if @knock.blank?
-    #  @knock = Kno
-    #  clock_in_result = "您還沒登入喔!~~"
-    #  #@result = ['result',"您還沒登入喔!~~"]
-    #  #render json: @knock
-    #else
-    #  render json: @knock
-    #
-    #end
-
     respond_to do |format|
-      if @knock.blank?
-        @knock = Knock.new
-        @knock.clock_in = Time.now
-
-        format.json { render :json => @knock.to_json }
-      end
+      temp = "您的上班打卡時間為:\n" + @knock.clock_in.strftime("%Y-%m-%d %H:%M:%S")
+      data = { :clock_in_result => temp }
+      format.json { render :json => data.to_json }
     end
 
-    #jsonArray = [{"resultxx"=>"您還沒登入喔!~~"}]
+    #使用 auth_user_render_template 只要兩行
+    #description =  params[:description]
+    #@knock = Knock.m_clock_in(current_user.id, description)
 
-    #objArray = json.parse(jsonArray).first
-    #rrr = objArray.resultxx
-
-    #respond_to do |format|
-    #  format.json { render :result => @result }
-    #end
-
-    #render :json => "您還沒登入喔!~~"
-    #render json: objArray.first
-
-    #render json: result, content_type: 'text/json'
-
-    #render json: @result
-
-    #return json(new { result="Credit" })
-
-
-    #render json: {clock_in_result: clock_in_result}
   end
 
   def clock_out
+
     description =  params[:description]
     @knock = Knock.m_clock_out(current_user.id, description)
+
+    respond_to do |format|
+      if @knock.blank?  #no clock in data
+        data = { :clock_out_result => '您還沒有上班打卡記錄喔~~' }
+        format.json { render :json => data.to_json }
+      else
+        temp = "您的下班打卡時間為:\n" + @knock.clock_out.strftime("%Y-%m-%d %H:%M:%S")
+        data = { :clock_out_result => temp }
+        format.json { render :json => data.to_json }
+      end
+    end
+
+    #使用 auth_user_render_template 只要兩行
+    #description =  params[:description]
+    #@knock = Knock.m_clock_out(current_user.id, description)
+
   end
 
   def modify_clock_in
   end
 
-  def knock_records(year,month)
+  def knock_records
 
     now_month = Time.now.strftime("%m").to_i
     @day = Knock.m_days_in_month(now_month)
 
-    @knocks_of_month = []
     @knocks_of_month = Knock.m_get_month_knocks(current_user.id, now_month)
 
+    @temp = []
+    @day.times do |i|
+      knock = @knocks_of_month.detect{|x| x.day == (i + 1)}
+
+      if knock.blank?
+        knock = Knock.new
+      else
+        #knock.clock_in = knock.clock_in.strftime("%H:%M")
+      end
+
+      knock.day = i + 1
+
+      @temp.push(knock)
+
+    end
   end
 
-  def auth_user
+  def auth_user_render_template
     if (current_user.blank?)  #action filter
       flash.now[:alert] = "您還沒登入喔!~~ "    #flash.now will clear after show once
       render :template => "knock/index"
     end
   end
+
+  def auth_user_render_json
+    if (current_user.blank?)  #透過ajax不會走before_filter
+      respond_to do |format|
+        data = { :auth_result => '您還沒登入喔!~~' }
+        format.json { render :json => data.to_json }
+      end
+    end
+  end
+
 end
