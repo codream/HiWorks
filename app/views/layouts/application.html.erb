@@ -8,13 +8,11 @@
 </head>
 <body>
 
-<% if alert %>
-    <script type="text/javascript">alert("<%= alert %>");</script>
-<% end %>
+    <% if alert %>
+        <script type="text/javascript">alert("<%= alert %>");</script>
+    <% end %>
 
-<div style="text-align: center;margin: 10px;50px;50px;50px">
-
-    <div style="margin-top: 20px;margin-right: 100px; text-align: right">
+    <div style="margin-right: 10%; text-align: right">
         <% if user_signed_in? %>
             <strong><%= current_user.email %></strong>
             <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
@@ -24,9 +22,10 @@
             <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
         <% end %>
     </div>
-    
-    <%= yield %>
-</div>
+
+    <div style="text-align: center;margin: 10px 0px 0px 0px">
+        <%= yield %>
+    </div>
 
 </body>
 </html>

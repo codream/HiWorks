@@ -4,6 +4,7 @@ class CreateKnocks < ActiveRecord::Migration
       t.integer  :user_id
       t.datetime :clock_in
       t.datetime :clock_out
+      t.string   :description
 
       t.timestamps
     end

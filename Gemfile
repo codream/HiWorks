@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+#calendar
+gem "simple_calendar"
+
 #squeel
 gem 'squeel'
 

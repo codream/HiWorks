@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20131104034338) do
     t.datetime "clock_out"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
   create_table "users", force: true do |t|

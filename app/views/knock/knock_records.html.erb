@@ -1,0 +1,29 @@
+
+
+<table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
+
+  <tr><td colspan="4" style="text-align: left;padding-left: 10%">員工姓名:</td></tr>
+  <tr><td colspan="4" style="text-align: left;padding-left: 10%">年/月:</td></tr>
+  <tr>
+    <td style="width: 10%">日期</td>
+    <td style="width: 25%">上班時間</td>
+    <td style="width: 25%">下班時間</td>
+    <td style="width: 40%">備註</td>
+  </tr>
+
+
+  <% @day.times do |i| %>
+  <tr>
+    <td><%= i + 1%></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <%end%>
+
+  <tr>
+    <td colspan="2"></td>
+    <td colspan="2" style="text-align: left;padding-left: 10px">確認簽名:</td>
+  </tr>
+
+</table>

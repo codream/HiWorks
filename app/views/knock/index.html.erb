@@ -2,28 +2,43 @@
 
 
 
-<div style="width: 520px;margin: auto">
+<div style="width: 550px;margin: auto">
+
+    <div>
+
+      <%= @days%>
+    </div>
 
     <div style="margin-top: 10px" id="time"></div>
 
-    <div style="padding-left: 10px;padding-top: 10px; text-align: left;width: auto;height: 150px; border-style: double;-webkit-border-radius: 5px;5px;5px;5px">
+    <div style="padding-left: 10px; padding-top: 10px; text-align: left; width: auto; height: 150px;
+            border:solid 5px; border-color:#2DA2BF; border-width: 4px 4px 4px 4px;
+            outline:solid 2px; outline-color:#2DA2BF; outline-offset: -7px ;border-radius: 5px 5px 5px 5px">
 
-      <p>
-      法師-瑞秋 : 產品細部規劃、行銷企劃與文案、外部合作規劃
-      <p>
-      牧師-胖達 : 產品開發、開發技術研發
-      <p>
-      坦克-山丘 : 工作協調、團隊行銷、資源規劃與取得、產品控管、架構設計、開發協助
+      <div style="text-align: left;font-size:20px;margin-bottom: 10px;color: #4400CC">codream</div>
+      <p>法師-瑞秋 : 產品細部規劃、行銷企劃與文案、外部合作規劃
+      <p>牧師-胖達 : 產品開發、開發技術研發
+      <p>坦克-山丘 : 工作協調、團隊行銷、資源規劃與取得、產品控管、架構設計、開發協助
 
     </div>
 
-
-    <div style="font-size: 30px;float:left;margin-top:15px;margin-left: 50px;">
-        <%= button_to "上班", knock_in_path, :method => "get" %>
+    <div style="margin-top: 15px;">
+      <!--<label style="float: left;">打卡備註:</label>-->
+      <input id="description"type="text" style="width: 530px;margin-right:0 " placeholder="今日如在非公司規定上下班時間打卡,請在此填寫原因,謝謝" />
     </div>
 
-    <div style="font-size: 30px;float: right;margin-top:15px;margin-right: 50px;">
-        <%= button_to "下班", knock_out_path, :method => "get" %>
+    <div style="font-size: 30px;float:left;margin-top:10px">
+
+        <!--<%= button_to "上班", knock_in_path, :method => "get" %>-->
+
+        <button id="btn_clock_in" type="button" style="width: 250px;height: 50px"> 上班 </button>
+    </div>
+
+    <div style="font-size: 30px;float: right;margin-top:10px">
+
+        <!--<%= button_to "下班", knock_out_path, :method => "get" %>-->
+
+        <button id="btn_clock_out" type="button" style="width: 250px;height: 50px"> 下班 </button>
     </div>
 </div>
 
@@ -34,6 +49,55 @@
         setInterval(updateTimes,1000);
     });
 
+    $("#btn_clock_in").click(function(){
+        var des = $("#description").val();
+
+//        $.post("/knock/clock_in", { description: des }, function(data) {
+//            if(data.clock_in_result) {
+//
+//                alert(data.clock_in_result);
+//            } else {
+//                //use the data object
+//            }
+//        });
+
+
+        $.ajax({
+            url: "/knock/clock_in",
+            type: 'POST',
+
+            data:  JSON.stringify({description:des}),
+            cache: false,
+            success: function(data){
+
+                alert(data.clock_in);
+
+            }
+            ,
+            error: function(){
+                alert('oops! 出現錯誤了! 請確認打卡記錄!');
+            }
+        });
+    });
+
+    $("#btn_clock_out").click(function(){
+        var des = $("#description").val();
+
+        $.ajax({
+            url: "/knock/clock_out",
+            type: 'POST',
+            data:  {description:des},
+            cache: false,
+            success: function(){
+                alert('successs');
+            }
+            ,
+            error: function(){
+                alert('oops! 出現錯誤了! 請確認打卡記錄!');
+            }
+        });
+    });
+
     function updateTimes(){
         $.ajax({
             url: "/knock/get_time",
@@ -41,10 +105,10 @@
             success: function(html){
                 $("#time").html(html);
             }
-//            ,
-//            error: function(){
-//                alert('loadding time error');
-//            }
+            //,
+            //error: function(){
+            //    alert('loadding time error');
+            //}
         });
     }
 </script>
