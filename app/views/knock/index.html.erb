@@ -1,10 +1,5 @@
 
-<div style="width: 550px;margin: auto">
-
-    <div>
-
-      <%= @days%>
-    </div>
+<div style="width: 55%;margin: auto">
 
     <div style="margin-top: 10px" id="time"></div>
 
@@ -24,14 +19,9 @@
       <input id="description"type="text" style="width: 530px;margin-right:0 " placeholder="今日如在非公司規定上下班時間打卡,請在此填寫原因,謝謝" />
     </div>
 
-    <div style="font-size: 30px;float:left;margin-top:10px">
-        <!--<%= button_to "上班", knock_in_path, :method => "get" %>-->
-        <button id="btn_clock_in" type="button" style="width: 250px;height: 50px"> 上班 </button>
-    </div>
-
-    <div style="font-size: 30px;float: right;margin-top:10px">
-        <!--<%= button_to "下班", knock_out_path, :method => "get" %>-->
-        <button id="btn_clock_out" type="button" style="width: 250px;height: 50px"> 下班 </button>
+    <div style="font-size: 30px;text-align: center ;margin-top:10px">
+      <button id="btn_clock_in" type="button" style="width: 200px;height: 60px"> 上班 </button>
+      <button id="btn_clock_out" type="button" style="width: 200px;height: 60px"> 下班 </button>
     </div>
 </div>
 

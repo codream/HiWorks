@@ -1,0 +1,64 @@
+
+<div style="font-size: 30px;float: left;margin-top:10px;margin-left:50px">
+    <%= link_to "基本資料", edit_user_registration_path, {:style => "width: 100px;height: 30px" } %>
+    </p>
+    <%= link_to "打卡紀錄", my_hourse_path, {:style => "width: 100px;height: 30px" } %>
+
+    <!--<%= button_to "打卡紀錄", my_hourse_path, {:style => "width: 100px;height: 30px" } %>-->
+</div>
+
+<div style="width: 55%; margin:auto ; text-align: center">
+
+  <select id ="year_select" style="width: 70px;margin-top: 10px">
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+  </select>
+
+  <select id ="month_select" style="width: 70px;margin-top: 10px">
+    <option value="1">1月</option>
+    <option value="2">2月</option>
+    <option value="3">3月</option>
+    <option value="4">4月</option>
+    <option value="5">5月</option>
+    <option value="6">6月</option>
+    <option value="7">7月</option>
+    <option value="8">8月</option>
+    <option value="9">9月</option>
+    <option value="10">10月</option>
+    <option value="11">11月</option>
+    <option value="12">12月</option>
+  </select>
+
+  <button id="btn_query_knock" type="button" style="width: 70px;height: 35px"> 查詢 </button>
+</div>
+
+<div id ="div_knock_records"  style="width: 55%;margin: auto;">
+    <%= render :partial => "knock/knock_records" %>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#year_select").val(<%= @now_year %>)
+        $("#month_select").val(<%= @now_month %>)
+    });
+
+    $("#btn_query_knock").click(function(){
+        var select_year = $("#year_select").val();
+        var select_month = $("#month_select").val();
+        var select_date = select_year + "," + select_month
+
+        $.ajax({
+            url: "/home/query_knock",
+            type: 'POST',
+            data:  {select_date:select_date},
+            cache: false,
+            success: function(data){
+                $('#div_knock_records').html(data);
+            },
+            error: function(){
+                alert('oops! 出現錯誤了!');
+            }
+        });
+    });
+</script>
+

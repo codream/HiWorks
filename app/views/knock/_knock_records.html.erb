@@ -1,9 +1,8 @@
 
-
 <table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
 
   <tr><td colspan="4" style="text-align: left;padding-left: 10%">員工姓名:</td></tr>
-  <tr><td colspan="4" style="text-align: left;padding-left: 10%">年/月:</td></tr>
+  <tr><td colspan="4" style="text-align: left;padding-left: 10%">年/月: </td></tr>
   <tr>
     <td style="width: 10%">日期</td>
     <td style="width: 20%">上班時間</td>
@@ -11,8 +10,7 @@
     <td style="width: 50%">備註</td>
   </tr>
 
-
-  <% @temp.each do |element| %>
+  <% @knocks_of_month.each do |element| %>
       <tr>
         <td><%= element.day %></td>
         <td>
@@ -32,8 +30,6 @@
         </td>
       </tr>
   <% end %>
-
-
 
   <tr>
     <td colspan="2"></td>

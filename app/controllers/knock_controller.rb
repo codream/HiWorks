@@ -3,7 +3,6 @@ class KnockController < ApplicationController
   before_action :auth_user_render_json, :only => [ :clock_in, :clock_out]
 
   def index
-
   end
 
   def get_time
@@ -51,33 +50,6 @@ class KnockController < ApplicationController
 
   end
 
-  def modify_clock_in
-  end
-
-  def knock_records
-
-    now_month = Time.now.strftime("%m").to_i
-    @day = Knock.m_days_in_month(now_month)
-
-    @knocks_of_month = Knock.m_get_month_knocks(current_user.id, now_month)
-
-    @temp = []
-    @day.times do |i|
-      knock = @knocks_of_month.detect{|x| x.day == (i + 1)}
-
-      if knock.blank?
-        knock = Knock.new
-      else
-        #knock.clock_in = knock.clock_in.strftime("%H:%M")
-      end
-
-      knock.day = i + 1
-
-      @temp.push(knock)
-
-    end
-  end
-
   def auth_user_render_template
     if (current_user.blank?)  #action filter
       flash.now[:alert] = "您還沒登入喔!~~ "    #flash.now will clear after show once
@@ -86,7 +58,7 @@ class KnockController < ApplicationController
   end
 
   def auth_user_render_json
-    if (current_user.blank?)  #透過ajax不會走before_filter
+    if (current_user.blank?)
       respond_to do |format|
         data = { :auth_result => '您還沒登入喔!~~' }
         format.json { render :json => data.to_json }

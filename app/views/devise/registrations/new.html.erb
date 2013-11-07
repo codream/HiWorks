@@ -1,18 +1,39 @@
-<h2>Sign up</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <div>
+    <%= f.label :email, "E-Mail" %>
+    <%= f.email_field :email, :autofocus => true %>
+  </div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <!--<div>-->
+    <!--<%= f.label :name, "姓名" %>-->
+    <!--<%= f.text_field :name %>-->
+  <!--</div>-->
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <!--<div>-->
+    <!--<%= f.label :phone, "手機" %>-->
+    <!--<%= f.phone_field :phone %>-->
+  <!--</div>-->
 
-  <div><%= f.submit "Sign up" %></div>
+  <!--<div>-->
+    <!--<%= f.label :department, "部門" %>-->
+    <!--<%= f.text_field :department %>-->
+  <!--</div>-->
+
+  <div>
+    <%= f.label :password, "密碼" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "確認密碼"%>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div><%= f.submit "註冊" %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>
