@@ -12,6 +12,15 @@
         <script type="text/javascript">alert("<%= alert %>");</script>
     <% end %>
 
+    <div style="margin-left: 10%">
+      <!--<a href= knock_index_path style="display: block; height: 100%">-->
+        <!--<img src="~/assets/images/hiworks_logo.png"/>-->
+      <!--</a>-->
+      <a href= "/knock/index" style="display: block; height: 100%">
+      <%= image_tag "hiworks_logo.png" %>
+      </a>
+    </div>
+
     <div style="margin-right: 10%; text-align: right">
         <% if user_signed_in? %>
             <%= link_to current_user.email , my_hourse_path , :class => 'navbar-link' %> |

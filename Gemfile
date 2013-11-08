@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
-#calendar
-gem "simple_calendar"
-
 #squeel
-gem 'squeel'
+#gem 'squeel'
+
+#fileupload
+#gem 'jquery-fileupload-rails'
+
+#deploy
+gem 'passenger'
 
 #Twitter Bootstrap
 gem 'bootstrap-sass'
-
-#fileupload
-gem 'jquery-fileupload-rails'
 
 #for member system
 gem 'devise'
