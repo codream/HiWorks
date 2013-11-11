@@ -6,18 +6,21 @@ class HomeController < ApplicationController
     #@now_month = Time.now.strftime("%m").to_i
 
     now = Time.now
-    @now_year = now.year
-    @now_month = now.month
-    @knocks_of_month = Knock.m_get_mix_month_knocks(current_user.id, @now_year, @now_month)
+    @year = now.year
+    @month = now.month
+    @knocks_of_month = Knock.m_get_mix_month_knocks(current_user.id, @year, @month)
+    @user = current_user
+
   end
 
   def query_knock
 
     select_date = params[:select_date]  #format like 2013,11
-    select_year = select_date[0,4].to_i
-    select_month = select_date[5, select_date.length - 5].to_i
+    @year = select_date[0,4].to_i
+    @month = select_date[5, select_date.length - 5].to_i
 
-    @knocks_of_month = Knock.m_get_mix_month_knocks(current_user.id, select_year, select_month)
+    @knocks_of_month = Knock.m_get_mix_month_knocks(current_user.id, @year, @month)
+    @user = current_user
 
     respond_to do |format|
       format.html { render "knock/_knock_records" ,:layout => false}

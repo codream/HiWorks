@@ -1,8 +1,15 @@
 
 <table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
 
-  <tr><td colspan="4" style="text-align: left;padding-left: 10%">員工姓名:</td></tr>
-  <tr><td colspan="4" style="text-align: left;padding-left: 10%">年/月: </td></tr>
+  <tr>
+    <td colspan="4" style="text-align: left;padding-left: 10%">
+      部門:<%= @user.department %> </br>
+      姓名:<%= @user.name %> </br>
+      電話:<%= @user.phone %> </br>
+      年月:<%= @year%>年<%= @month%>月
+    </td>
+  </tr>
+  <!--<tr><td colspan="4" style="text-align: left;padding-left: 10%"></td></tr>-->
   <tr>
     <td style="width: 10%">日期</td>
     <td style="width: 20%">上班時間</td>

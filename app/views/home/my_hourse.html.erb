@@ -29,7 +29,7 @@
     <option value="12">12月</option>
   </select>
 
-  <button id="btn_query_knock" type="button" style="width: 70px;height: 35px"> 查詢 </button>
+  <!--<button id="btn_query_knock" type="button" style="width: 70px;height: 35px"> 查詢 </button>-->
 </div>
 
 <div id ="div_knock_records"  style="width: 55%;margin: auto;">
@@ -38,9 +38,48 @@
 
 <script>
     $(document).ready(function(){
-        $("#year_select").val(<%= @now_year %>)
-        $("#month_select").val(<%= @now_month %>)
+        $("#year_select").val(<%= @year %>)
+        $("#month_select").val(<%= @month %>)
     });
+
+    $("#year_select").change(function(){
+        var select_year = $("#year_select").val();
+        var select_month = $("#month_select").val();
+        var select_date = select_year + "," + select_month
+
+        $.ajax({
+            url: "/home/query_knock",
+            type: 'POST',
+            data:  {select_date:select_date},
+            cache: false,
+            success: function(data){
+                $('#div_knock_records').html(data);
+            },
+            error: function(){
+                alert('oops! 出現錯誤了!');
+            }
+        });
+    });
+
+    $("#month_select").change(function(){
+        var select_year = $("#year_select").val();
+        var select_month = $("#month_select").val();
+        var select_date = select_year + "," + select_month
+
+        $.ajax({
+            url: "/home/query_knock",
+            type: 'POST',
+            data:  {select_date:select_date},
+            cache: false,
+            success: function(data){
+                $('#div_knock_records').html(data);
+            },
+            error: function(){
+                alert('oops! 出現錯誤了!');
+            }
+        });
+    });
+
 
     $("#btn_query_knock").click(function(){
         var select_year = $("#year_select").val();

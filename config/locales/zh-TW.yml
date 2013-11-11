@@ -120,6 +120,7 @@ zh-TW:
       too_long: 過長（最長是 %{count} 個字）
       too_short: 過短（最短是 %{count} 個字）
       wrong_length: 字數錯誤（必須是 %{count} 個字）
+      not_saved: 儲存失敗
     template:
       body: 以下欄位發生問題：
       header:
