@@ -6,18 +6,31 @@ class KnockController < ApplicationController
   end
 
   def get_time
-    @date = Time.now.strftime("%Y-%m-%d")
-    @time = Time.now.strftime("%H:%M:%S")
+    now = Time.now
+    @date = now.strftime("%Y-%m-%d")
+    #@time = now.strftime("%H:%M:%S")
+    @time = now.strftime("%H:%M")
+    render :layout => false
+  end
+
+  def get_talk
+
+    if current_user.blank?
+      @talk = ''
+    else
+      @talk = current_user.name
+    end
+
     render :layout => false
   end
 
   def clock_in
 
     description =  params[:description]
-    @knock = Knock.m_clock_in(current_user.id, description)
+    knock = Knock.m_clock_in(current_user.id, description)
 
     respond_to do |format|
-      temp = "您的上班打卡時間為:\n" + @knock.clock_in.strftime("%Y-%m-%d %H:%M:%S")
+      temp = "您的上班打卡時間為:\n" + knock.clock_in.strftime("%Y-%m-%d %H:%M:%S")
       data = { :clock_in_result => temp }
       format.json { render :json => data.to_json }
     end
@@ -31,14 +44,14 @@ class KnockController < ApplicationController
   def clock_out
 
     description =  params[:description]
-    @knock = Knock.m_clock_out(current_user.id, description)
+    knock = Knock.m_clock_out(current_user.id, description)
 
     respond_to do |format|
-      if @knock.blank?  #no clock in data
+      if knock.blank?  #no clock in data
         data = { :clock_out_result => '您還沒有上班打卡記錄喔~~' }
         format.json { render :json => data.to_json }
       else
-        temp = "您的下班打卡時間為:\n" + @knock.clock_out.strftime("%Y-%m-%d %H:%M:%S")
+        temp = "您的下班打卡時間為:\n" + knock.clock_out.strftime("%Y-%m-%d %H:%M:%S")
         data = { :clock_out_result => temp }
         format.json { render :json => data.to_json }
       end

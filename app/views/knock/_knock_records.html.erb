@@ -10,21 +10,21 @@
     <td style="width: 50%">備註</td>
   </tr>
 
-  <% @knocks_of_month.each do |element| %>
+  <% @knocks_of_month.each_with_index do |element, index| %>
       <tr>
-        <td><%= element.day %></td>
+        <td><%= index + 1 %></td>
         <td>
-          <% if !element.clock_in.blank? %>
+          <% if !element.blank? && !element.clock_in.blank? %>
               <%= element.clock_in.strftime("%H:%M") %>
-          <%end %>
+          <% end %>
         </td>
         <td>
-          <% if !element.clock_out.blank? %>
+          <% if !element.blank? && !element.clock_out.blank? %>
               <%= element.clock_out.strftime("%H:%M") %>
           <% end %>
         </td>
         <td>
-          <% if !element.description.blank? %>
+          <% if !element.blank? && !element.description.blank? %>
               <%= element.description %>
           <% end %>
         </td>

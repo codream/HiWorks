@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20131104034338) do
     t.datetime "clock_in"
     t.datetime "clock_out"
     t.string   "description"
-    t.integer  "day",         limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

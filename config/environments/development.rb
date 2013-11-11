@@ -29,7 +29,7 @@ HiWorks::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { :host => '59.124.93.74' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   ActionMailer::Base.smtp_settings = {
       :address        => "smtp.gmail.com",
       :port           => 587,

@@ -13,17 +13,14 @@
     <% end %>
 
     <div style="margin-left: 10%">
-      <!--<a href= knock_index_path style="display: block; height: 100%">-->
-        <!--<img src="~/assets/images/hiworks_logo.png"/>-->
-      <!--</a>-->
       <a href= "/knock/index" style="display: block; height: 100%">
-      <%= image_tag "hiworks_logo.png" %>
+        <%= image_tag "hiworks_logo.png" %>
       </a>
     </div>
 
-    <div style="margin-right: 10%; text-align: right">
+    <div style="margin-left: 10%;margin-right: 10%; text-align: right">
         <% if user_signed_in? %>
-            <%= link_to current_user.email , my_hourse_path , :class => 'navbar-link' %> |
+            <%= link_to "帳戶管理" , my_hourse_path , :class => 'navbar-link' %> |
             <%= link_to "登出", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
         <% else %>
             <%= link_to "註冊", new_user_registration_path, :class => 'navbar-link'  %> |
