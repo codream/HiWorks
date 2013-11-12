@@ -46,5 +46,5 @@ production:
   database: HiWorks_production
   pool: 5
   username: root
-  password: yun123
-  socket: /var/run/mysqld/mysqld.sock
+  password: sqlsqlsql2
+  #socket: /var/run/mysqld/mysqld.sock
