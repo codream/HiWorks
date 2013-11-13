@@ -8,10 +8,16 @@ HiWorks::Application.routes.draw do
   get "knock/get_talk"
   post "knock/clock_in"
   post "knock/clock_out"
-  get "knock/knock_records" , :as => 'knock_records'
 
   get "home/my_hourse" ,:as => 'my_hourse'
-  post "home/query_knock"
+  get "knock/my_month_knocks"
+  post "home/query_my_month_knocks"
+
+  get "home/team_hourse", :as => 'team_hourse'
+  get "home/team_day_knocks"
+  post "home/query_team_day_knocks"
+
+  post "home/get_days_select_tag"
 
   #get "knock/clock_in"  ,:as => 'knock_in'
   #get "knock/clock_out" ,:as => 'knock_out'

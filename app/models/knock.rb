@@ -1,4 +1,5 @@
 class Knock < ActiveRecord::Base
+  belongs_to :user
 
   def self.m_clock_in(uid, description)
     knocks = m_get_today_knock(uid)
@@ -47,6 +48,11 @@ class Knock < ActiveRecord::Base
     return mix
   end
 
+  def m_get_team_day_knocks(select_year, select_month, select_day)
+    
+
+  end
+
   def self.m_days_in_month(year ,month)
     common_year_days_in_month = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     return 29 if month == 2 && Date.gregorian_leap?(year)
@@ -77,6 +83,13 @@ class Knock < ActiveRecord::Base
       #find(:all, :conditions => ["user_id = ? AND clock_in between ? and ?", uid, "#{time_start}%", "#{time_end}%"])
       where( :user_id => uid, :clock_in => time_start..time_end )
     end
+  end
+
+  def self.m_get_team_day_knocks(select_year, select_month, select_day)
+    time_start = select_year.to_s + "-" + select_month.to_s + "-" + select_day.to_s
+    time_end = select_year.to_s + "-" + select_month.to_s + "-" + (select_day + 1).to_s
+
+    @team = User.includes(:knocks).where(:knocks => {clock_in: time_start..time_end})
   end
 
 end

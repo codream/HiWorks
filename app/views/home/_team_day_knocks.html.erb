@@ -1,0 +1,32 @@
+
+<table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
+
+  <tr>
+    <td style="width: 20%">戰鬥員</td>
+    <td style="width: 20%">上班時間</td>
+    <td style="width: 20%">下班時間</td>
+    <td style="width: 40%">備註</td>
+  </tr>
+
+  <% @team_day_knocks.each do |element| %>
+      <tr>
+        <td><%= element.name%></td>
+        <td>
+          <% if !element.blank? && !element.knocks.first.clock_in.blank? %>
+              <%= element.knocks.first.clock_in.strftime("%H:%M") %>
+          <% end %>
+        </td>
+        <td>
+          <% if !element.blank? && !element.knocks.first.clock_out.blank? %>
+              <%= element.knocks.first.clock_out.strftime("%H:%M") %>
+          <% end %>
+        </td>
+        <td>
+          <% if !element.blank? && !element.knocks.first.description.blank? %>
+              <%= element.knocks.first.description %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+
+</table>
