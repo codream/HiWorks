@@ -5,27 +5,48 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <div>
+    <%= f.label :email, "E-Mail" %>
+    <%= f.email_field :email, :autofocus => false, :disabled=>"disabled" %>
+  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+  <div><%= f.label :password, "新密碼" %> <i>(如果沒有要修改密碼請留空)</i><br />
+    <%= f.password_field :password, :autocomplete => "off" %>
+  </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <div><%= f.label :password_confirmation, "確認新密碼" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+  <div>
+    <%= f.label :name, "姓名" %>
+    <%= f.text_field :name %>
+  </div>
 
-  <div><%= f.submit "Update" %></div>
+  <div>
+    <%= f.label :phone, "手機" %>
+    <%= f.phone_field :phone %>
+  </div>
+
+  <div>
+    <%= f.label :department, "部門" %>
+    <%= f.text_field :department %>
+  </div>
+
+  <div><%= f.label :current_password,"輸入目前密碼修改" %>
+    <%= f.password_field :current_password %>
+  </div>
+
+
+  <div><%= f.submit "確認修改" %></div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3>關閉帳戶</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
 
-<%= link_to "Back", :back %>
+<%= link_to "回上一頁", :back %>
