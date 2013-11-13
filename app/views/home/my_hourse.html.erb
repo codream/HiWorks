@@ -5,8 +5,6 @@
     <%= link_to "個人打卡", my_hourse_path, {:style => "width: 100px;height: 30px" } %>
     </p></br>
     <%= link_to "團隊打卡", team_hourse_path, {:style => "width: 100px;height: 30px" } %>
-
-    <!--<%= button_to "打卡紀錄", my_hourse_path, {:style => "width: 100px;height: 30px" } %>-->
 </div>
 
 <div style="width: 55%; margin:auto ; text-align: center">
@@ -31,6 +29,7 @@
     <option value="12">12月</option>
   </select>
 
+  <input id="btnPrint" type="button" value="列印" onclick="printScreen(div_my_month_knocks)"/>
   <!--<button id="btn_query_knock" type="button" style="width: 70px;height: 35px"> 查詢 </button>-->
 </div>
 
@@ -101,5 +100,16 @@
             }
         });
     });
+
+    function printScreen(div_my_month_knocks)    {
+        var value = div_my_month_knocks.innerHTML;
+        var printPage = window.open("","printPage","");
+        printPage.document.open();
+        printPage.document.write("<HTML><head></head><BODY onload='window.print();window.close()'>");
+        printPage.document.write("<PRE>");
+        printPage.document.write(value);
+        printPage.document.write("</PRE>");
+        printPage.document.close("</BODY></HTML>");
+    };
 </script>
 
