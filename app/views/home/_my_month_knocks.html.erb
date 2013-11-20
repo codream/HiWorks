@@ -1,8 +1,9 @@
 
+
 <table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
 
   <tr>
-    <td colspan="4" style="text-align: left;padding-left: 10%">
+    <td colspan="5" style="text-align: left;padding-left: 10%">
       部門:<%= @user.department %> </br>
       姓名:<%= @user.name %> </br>
       電話:<%= @user.phone %> </br>
@@ -11,15 +12,17 @@
   </tr>
   <!--<tr><td colspan="4" style="text-align: left;padding-left: 10%"></td></tr>-->
   <tr>
-    <td style="width: 10%">日期</td>
+    <td style="width: 8%">日期</td>
+    <td style="width: 7%">星期</td>
     <td style="width: 20%">上班時間</td>
     <td style="width: 20%">下班時間</td>
-    <td style="width: 50%">備註</td>
+    <td style="width: 45%">備註</td>
   </tr>
 
   <% @knocks_of_month.each_with_index do |element, index| %>
       <tr>
         <td><%= index + 1 %></td>
+        <td><%= @week_day [Time.new(@year ,@month, index+1).wday]  %></td>
         <td>
           <% if !element.blank? && !element.clock_in.blank? %>
               <%= element.clock_in.strftime("%H:%M") %>
@@ -39,8 +42,7 @@
   <% end %>
 
   <tr>
-    <td colspan="2"></td>
-    <td colspan="2" style="text-align: left;padding-left: 10px;height:40px">確認簽名:</td>
+    <td colspan="5" style="text-align: left;padding-left: 10px;height:40px">確認簽名:</td>
   </tr>
 
 </table>

@@ -1,10 +1,6 @@
 
 <div style="font-size: 30px;float: left;margin-top:50px;margin-left:10%">
-    <%= link_to "基本資料", edit_user_registration_path, {:style => "width: 100px;height: 30px" } %>
-    </p></br>
-    <%= link_to "個人打卡", my_hourse_path, {:style => "width: 100px;height: 30px" } %>
-    </p></br>
-    <%= link_to "團隊打卡", team_hourse_path, {:style => "width: 100px;height: 30px" } %>
+  <%= render :partial => "home/left_menu" %>
 </div>
 
 <div style="width: 55%; margin:auto ; text-align: center">
@@ -34,7 +30,7 @@
 </div>
 
 <div id ="div_my_month_knocks"  style="width: 55%;margin: auto;">
-    <%= render :partial => "knock/my_month_knocks" %>
+    <%= render :partial => "home/my_month_knocks" %>
 </div>
 
 <script>
