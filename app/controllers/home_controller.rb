@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :auth_user_render_template, :only => [ :my_hourse, :team_hourse,:query_team_day_knocks, :query_knock]
 
   def my_hourse
-    @week_day = %w[一 二  三 四 五 六 日]
+    @week_day = %w[日 一 二  三 四 五 六]
 
     now = Time.now
     @year = now.year

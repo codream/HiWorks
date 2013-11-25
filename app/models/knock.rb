@@ -12,6 +12,8 @@ class Knock < ActiveRecord::Base
       knock.save
     else
       knock = knocks.first
+      knock.description = description
+      knock.save
     end
 
     return knock

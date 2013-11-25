@@ -3,6 +3,14 @@ class KnockController < ApplicationController
   before_action :auth_user_render_json, :only => [ :clock_in, :clock_out]
 
   def index
+
+    todayKnock = Knock.m_get_today_knock( current_user.id)
+    if todayKnock.blank?
+      @placeholder = '今日如在非公司規定上下班時間打卡,請在此填寫原因,謝謝'
+    else
+      @userNote = todayKnock.first.description
+    end
+
   end
 
   def get_time
@@ -25,7 +33,6 @@ class KnockController < ApplicationController
   end
 
   def clock_in
-
     description =  params[:description]
     knock = Knock.m_clock_in(current_user.id, description)
 
