@@ -4,13 +4,17 @@ class KnockController < ApplicationController
 
   def index
 
-    todayKnock = Knock.m_get_today_knock( current_user.id)
-    if todayKnock.blank?
-      @placeholder = '今日如在非公司規定上下班時間打卡,請在此填寫原因,謝謝'
+    if current_user.blank?
+      @userName = ''
     else
-      @userNote = todayKnock.first.description
+      @userName = current_user.name
+      todayKnock = Knock.m_get_today_knock( current_user.id)
+      if todayKnock.blank?
+        @placeholder = '今日如在非公司規定上下班時間打卡,請在此填寫原因,謝謝'
+      else
+        @userNote = todayKnock.first.description
+      end
     end
-
   end
 
   def get_time
