@@ -15,6 +15,11 @@ class KnockController < ApplicationController
         @user_note = today_knock.first.description
       end
     end
+
+    @testing =''
+
+    request.env.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
+
   end
 
   def get_time
