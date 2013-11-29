@@ -39,9 +39,9 @@
             </td>
             <td style="text-align:left">
               <% if !element.blank? && !element.description.blank? %>
-                  <input type="text"  value="<%=element.description%>"  name="<%= index + 1 %>_<%=element.id%>">
+                  <input type="text"  value="<%=element.description%>"  name="<%= @year%>-<%= @month%>-<%= index + 1 %>">
                   <%else%>
-                  <input type="text"  value="" style="display: none" name="<%= index + 1 %>_0">
+                  <input type="text"  value="" style="display: none" name="<%= @year%>-<%= @month%>-<%= index + 1 %>">
               <% end %>
 
             </td>
@@ -66,7 +66,7 @@
             type: "POST",
             url: "/home/update_note",
             cache: false,
-            data: {year: <%= @year%>, month:<%= @month%>, day_ID: this.name ,  desc: this.value }  ,
+            data: { this_date: this.name ,  desc: this.value }  ,
             success: function(text){
                 letDivCenter(updateMSG);
                 $("#updateMSG").html(text);

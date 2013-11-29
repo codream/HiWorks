@@ -4,7 +4,7 @@
 
     <div id="talk" style="text-align: center">
         Hi ,
-        <%= @user_name %>     -      <%= request.remote_ip %>
+        <%= @user_name %>     -      <%= request.env["HTTP_X_FORWARDED_FOR"] +'-'+ request.META['HTTP_X_REAL_IP']   %>
 
     </div>
 

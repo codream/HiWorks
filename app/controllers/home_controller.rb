@@ -23,24 +23,22 @@ class HomeController < ApplicationController
   end
 
   def update_note
-    error_message='';
+    error_message=''
 
     begin
-       sYear = params[:year]
-       sMonth = params[:month]
-       sDay = params[:day_ID].split('_').first
-       sID =  params[:day_ID].split('_').last
-       sDesc = params[:desc]
+       select_day = params[:this_date]
+       select_desc = params[:desc]
 
+       knock_update =  Knock.where(:log_date => select_day,:user_id => current_user.id)
 
-       if sID != '0'  # 0 is new record for knock
-         Knock.where(:id => sID).update_all(:description =>sDesc)
-       else
+       if  knock_update.blank? # 0 is new record for knock
          mKnock = Knock.new()
-         mKnock.log_date = "#{sYear}-#{sMonth}-#{sDay}"
+         mKnock.log_date = select_day
          mKnock.user_id = current_user.id
-         mKnock.description= sDesc
+         mKnock.description= select_desc
          mKnock.save
+       else
+         Knock.where(:log_date => select_day,:user_id => current_user.id).update_all(:description =>select_desc)
        end
     rescue  => e
        error_message = e.to_s
