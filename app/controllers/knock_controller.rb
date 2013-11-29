@@ -16,9 +16,8 @@ class KnockController < ApplicationController
       end
     end
 
-    @testing =''
-
-    request.env.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
+    #@testing =''
+    #request.env.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
 
   end
 
