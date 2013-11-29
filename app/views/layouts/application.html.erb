@@ -20,7 +20,7 @@
 
     <div style="margin-left: 10%;margin-right: 10%; text-align: right">
         <% if user_signed_in? %>
-            <%= link_to "帳戶管理" , my_hourse_path , :class => 'navbar-link' %> |
+            <%= link_to "帳戶管理" , my_house_path , :class => 'navbar-link' %> |
             <%= link_to "登出", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
         <% else %>
             <%= link_to "註冊", new_user_registration_path, :class => 'navbar-link'  %> |

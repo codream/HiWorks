@@ -1,0 +1,151 @@
+
+<div style="font-size: 30px;float: left;margin-top:50px;margin-left:10%">
+  <%= render :partial => "home/left_menu" %>
+</div>
+
+<div style="width: 55%; margin:auto ; text-align: center">
+  <span id ="goBack"  > <img  src="/images/1385638301_gtk-go-back-ltr.png"  onmouseover="this.style.cursor='pointer';this.style.cursor='hand'" onmouseout="this.style.cursor='default'" /> </span>
+  <select id ="year_select" style="width: 70px;margin-top: 10px">
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+    <option value="2014">2015</option>
+    <option value="2014">2016</option>
+  </select>
+
+  <select id ="month_select" style="width: 70px;margin-top: 10px">
+    <option value="1">1月</option>
+    <option value="2">2月</option>
+    <option value="3">3月</option>
+    <option value="4">4月</option>
+    <option value="5">5月</option>
+    <option value="6">6月</option>
+    <option value="7">7月</option>
+    <option value="8">8月</option>
+    <option value="9">9月</option>
+    <option value="10">10月</option>
+    <option value="11">11月</option>
+    <option value="12">12月</option>
+  </select>
+
+  <select id ="day_select" style="width: 70px;margin-top: 10px">
+  </select>     <span id ="nextDay" > <image src="/images/1385638234_go-next.png"  onmouseover="this.style.cursor='pointer';this.style.cursor='hand'" onmouseout="this.style.cursor='default'" /> </span>
+
+
+
+</div>
+
+<div id ="div_team_knock_records"  style="width: 55%;margin: auto;">
+  <%= render :partial => "home/team_day_knocks" %>
+</div>
+
+<script src="/js/codreamUtility.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $("#year_select").val(<%= @year %>)
+        $("#month_select").val(<%= @month %>)
+
+        reflashDays( daysInMonth(<%= @month %>,<%= @year %>) )  ;
+        $("#day_select").val(<%= @day %>);
+        get_team_knocks();
+    });
+
+    $("#month_select").change(function(){
+
+        var select_year = $("#year_select").val();
+        var select_month = $("#month_select").val();
+
+        reflashDays( daysInMonth(select_month,select_year) )  ;
+
+        get_team_knocks();
+    });
+
+    $("#year_select").change(function(){
+        get_team_knocks();
+    });
+
+
+    $("#day_select").change(function(){
+        get_team_knocks();
+    });
+
+    $("#nextDay").click(function(){
+        var iDay = parseInt( $("#day_select").val()) ;
+        var iMonth = parseInt( $("#month_select").val())  ;
+        var iYear = parseInt($("#year_select").val());
+
+        if (iDay >= daysInMonth(iMonth,iYear)) { //next month or year
+            $("#day_select").val(1);
+            if (iMonth == 12){   //next year
+                $("#year_select").val(iYear+1) ;
+                $("#month_select").val(1) ;
+                reflashDays( daysInMonth(iMonth+1,iYear+1));
+            }else{     //next month
+                $("#month_select").val(iMonth+1) ;
+                reflashDays( daysInMonth(iMonth+1,iYear));
+            }
+        }else{  //just next day
+            $("#day_select").val(iDay+1);
+        }
+
+        get_team_knocks();   // reflash report
+        //alert(iDay );
+    });
+
+    $("#goBack").click(function(){
+        var iDay = parseInt( $("#day_select").val()) ;
+        var iMonth = parseInt( $("#month_select").val())  ;
+        var iYear = parseInt($("#year_select").val());
+
+        if (iDay == 1) { //previous month or year
+            if (iMonth == 1){   //previous year
+                $("#day_select").val(daysInMonth(12,iYear-1));
+                $("#year_select").val(iYear-1) ;
+                $("#month_select").val(12) ;
+                reflashDays( daysInMonth(12,iYear-1));
+            }else{     //previous month
+                $("#day_select").val(daysInMonth(iMonth-1,iYear));
+                $("#month_select").val(iMonth-1) ;
+                reflashDays( daysInMonth(iMonth-1,iYear));
+            }
+        }else{  //just back 1 day
+            $("#day_select").val(iDay-1);
+        }
+
+        get_team_knocks();   // reflash report
+        //alert(iDay );
+    });
+
+    function reflashDays( daysInMonth ) {
+        var daySelected = $("#day_select").val();
+        $("#day_select").children().remove();  // Remove all days option
+        for (var n = 1; n <= daysInMonth; n++)
+            $("#day_select").append('<option value="' + n + '">' + n + '</option>');
+
+        if (daySelected <= daysInMonth){
+            $("#day_select").val(daySelected);
+        }else{
+            $("#day_select").val(1);
+        }
+    }
+
+
+
+
+    function get_team_knocks(){
+        var select_year = $("#year_select").val();
+        var select_month = $("#month_select").val();
+        var select_day = $("#day_select").val();
+        var select_date = select_year + "," + select_month + "," + select_day
+
+        $.ajax({
+            url: "/home/query_team_day_knocks",
+            type: 'POST',
+            data:  {select_date:select_date},
+            cache: false,
+            success: function(data){
+                $('#div_team_knock_records').html(data);
+            }
+        });
+    };
+</script>

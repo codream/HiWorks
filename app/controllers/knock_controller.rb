@@ -2,37 +2,26 @@ class KnockController < ApplicationController
   #before_action :auth_user_render_template, :only => [ :clock_in, :clock_out, :modify_clock_in, :knock_records]
   before_action :auth_user_render_json, :only => [ :clock_in, :clock_out]
 
+  # @return [Object]
   def index
-
     if current_user.blank?
-      @userName = ''
+      @user_name = ''
     else
-      @userName = current_user.name
-      todayKnock = Knock.m_get_today_knock( current_user.id)
-      if todayKnock.blank?
+      @user_name = current_user.name
+      today_knock = Knock.m_get_today_knock( current_user.id)
+      if today_knock.blank? then
         @placeholder = '今日如在非公司規定上下班時間打卡,請在此填寫原因,謝謝'
       else
-        @userNote = todayKnock.first.description
+        @user_note = today_knock.first.description
       end
     end
   end
 
   def get_time
     now = Time.now
-    @date = now.strftime("%Y-%m-%d")
+    @date = now.strftime('%Y-%m-%d')
     #@time = now.strftime("%H:%M:%S")
-    @time = now.strftime("%H:%M")
-    render :layout => false
-  end
-
-  def get_talk
-
-    if current_user.blank?
-      @talk = ''
-    else
-      @talk = current_user.name
-    end
-
+    @time = now.strftime('%H:%M')
     render :layout => false
   end
 
@@ -41,7 +30,7 @@ class KnockController < ApplicationController
     knock = Knock.m_clock_in(current_user.id, description)
 
     respond_to do |format|
-      temp = "您的上班打卡時間為:\n" + knock.clock_in.strftime("%Y-%m-%d %H:%M:%S")
+      temp = '您的上班打卡時間為:' + knock.clock_in.strftime('%Y-%m-%d %H:%M:%S')
       data = { :clock_in_result => temp }
       format.json { render :json => data.to_json }
     end
@@ -75,14 +64,15 @@ class KnockController < ApplicationController
   end
 
   def auth_user_render_template
-    if (current_user.blank?)  #action filter
-      flash.now[:alert] = "您還沒登入喔!~~ "    #flash.now will clear after show once
-      render :template => "knock/index"
+    if current_user.blank? #action filter
+      flash.now[:alert] = '您還沒登入喔!~~ '    #flash.now will clear after show once
+      render :template => 'knock/index'
     end
   end
 
+
   def auth_user_render_json
-    if (current_user.blank?)
+    if current_user.blank?
       respond_to do |format|
         data = { :auth_result => '您還沒登入喔!~~' }
         format.json { render :json => data.to_json }

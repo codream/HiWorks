@@ -1,4 +1,5 @@
 
+<div id="updateMSG" style="position: absolute;color: #ff4e87;font:16pt; display:none; " > x </div>
 
 <table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
 
@@ -10,39 +11,71 @@
       年月:<%= @year%>年<%= @month%>月
     </td>
   </tr>
-  <!--<tr><td colspan="4" style="text-align: left;padding-left: 10%"></td></tr>-->
   <tr>
     <td style="width: 8%">日期</td>
     <td style="width: 7%">星期</td>
     <td style="width: 20%">上班時間</td>
     <td style="width: 20%">下班時間</td>
-    <td style="width: 45%">備註</td>
+    <td style="width: 45%">備註
+      <img id="editNote"  src="/images/Text-Edit-icon.png" onmouseover="this.style.cursor='pointer';this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+             style="width:20px; border:0; cursor:hand;" alt="Click to edit other note! And press ENTER after you editing." />
+
+    </td>
   </tr>
 
-  <% @knocks_of_month.each_with_index do |element, index| %>
-      <tr>
-        <td><%= index + 1 %></td>
-        <td><%= @week_day [Time.new(@year ,@month, index+1).wday]  %></td>
-        <td>
-          <% if !element.blank? && !element.clock_in.blank? %>
-              <%= element.clock_in.strftime("%H:%M") %>
-          <% end %>
-        </td>
-        <td>
-          <% if !element.blank? && !element.clock_out.blank? %>
-              <%= element.clock_out.strftime("%H:%M") %>
-          <% end %>
-        </td>
-        <td>
-          <% if !element.blank? && !element.description.blank? %>
-              <%= element.description %>
-          <% end %>
-        </td>
-      </tr>
+      <% @knocks_of_month.each_with_index do |element, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= @week_day[Time.new(@year ,@month, index+1).wday]  %></td>
+            <td>
+              <% if !element.blank? && !element.clock_in.blank? %>
+                  <%= element.clock_in.strftime('%H:%M') %>
+              <% end %>
+            </td>
+            <td>
+              <% if !element.blank? && !element.clock_out.blank? %>
+                  <%= element.clock_out.strftime('%H:%M') %>
+              <% end %>
+            </td>
+            <td style="text-align:left">
+              <% if !element.blank? && !element.description.blank? %>
+                  <input type="text"  value="<%=element.description%>"  name="<%= index + 1 %>_<%=element.id%>">
+                  <%else%>
+                  <input type="text"  value="" style="display: none" name="<%= index + 1 %>_0">
+              <% end %>
+
+            </td>
+          </tr>
   <% end %>
 
   <tr>
-    <td colspan="5" style="text-align: left;padding-left: 10px;height:40px">確認簽名:</td>
+    <td colspan="5" style="text-align: left;padding-left: 10px;height:40px">確認簽名:  </td>
   </tr>
 
 </table>
+
+<script src="/js/codreamUtility.js"></script>
+
+<script>
+    $("#editNote").click(function(){
+         $("input").show();
+     });
+
+    $("input").change( function(){
+        $.ajax({
+            type: "POST",
+            url: "/home/update_note",
+            cache: false,
+            data: {year: <%= @year%>, month:<%= @month%>, day_ID: this.name ,  desc: this.value }  ,
+            success: function(text){
+                letDivCenter(updateMSG);
+                $("#updateMSG").html(text);
+                $("#updateMSG").fadeIn(1000,function(){
+                    $("#updateMSG").fadeOut(5000)
+                });
+
+            }
+        }) ;
+    });
+
+</script>

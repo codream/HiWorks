@@ -1,9 +1,10 @@
+<div id="updateMSG" style="position: absolute; color: #ff4e87;font:16pt; display:none; " > x </div>
 
 <div style="width: 55%;margin: auto">
 
     <div id="talk" style="text-align: center">
         Hi ,
-        <%= @userName %>
+        <%= @user_name %>     -      <%= request.remote_ip %>
 
     </div>
 
@@ -33,6 +34,7 @@
     </div>
 </div>
 
+<script src="/js/codreamUtility.js"></script>
 
 <script>
 
@@ -52,15 +54,15 @@
             cache: false,
             success: function(data){
                 if (data.auth_result)
-                    alert(data.auth_result);
+                    alertMSG(data.auth_result);
                 else if (data.clock_in_result)
-                    alert(data.clock_in_result);
+                    alertMSG(data.clock_in_result);
                 else
-                    alert('oops! 出現錯誤了! 請確認打卡記錄!')
+                    alertMSG('oops! 出現錯誤了! 請確認打卡記錄!')
 
             },
             error: function(){
-                alert('oops! 出現錯誤了! 請確認打卡記錄!');
+                alertMSG('oops! 出現錯誤了! 請確認打卡記錄!');
             }
         });
     });
@@ -75,14 +77,14 @@
             cache: false,
             success: function(data){
                 if (data.auth_result)
-                    alert(data.auth_result);
+                    alertMSG(data.auth_result);
                 else if (data.clock_out_result)
-                    alert(data.clock_out_result);
+                    alertMSG(data.clock_out_result);
                 else
-                    alert('oops! 出現錯誤了! 請確認打卡記錄!')
+                    alertMSG('oops! 出現錯誤了! 請確認打卡記錄!')
             },
             error: function(){
-                alert('oops! 出現錯誤了! 請確認打卡記錄!');
+                alertMSG('oops! 出現錯誤了! 請確認打卡記錄!');
             }
         });
     });
@@ -96,11 +98,18 @@
             }
             //,
             //error: function(){
-            //    alert('loadding time error');
+            //    alertMSG('loadding time error');
             //}
         });
     };
 
+    function alertMSG(sMsg){
+        letDivCenter(updateMSG);
+        $("#updateMSG").html(sMsg);
+        $("#updateMSG").fadeIn(3000,function(){
+            $("#updateMSG").fadeOut(6000)
+        });
+    }
 
 </script>
 

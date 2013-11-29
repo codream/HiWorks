@@ -8,6 +8,8 @@
   <select id ="year_select" style="width: 70px;margin-top: 10px">
     <option value="2013">2013</option>
     <option value="2014">2014</option>
+    <option value="2014">2015</option>
+    <option value="2014">2016</option>
   </select>
 
   <select id ="month_select" style="width: 70px;margin-top: 10px">
@@ -40,62 +42,13 @@
     });
 
     $("#year_select").change(function(){
-        var select_year = $("#year_select").val();
-        var select_month = $("#month_select").val();
-        var select_date = select_year + "," + select_month
-
-        $.ajax({
-            url: "/home/query_my_month_knocks",
-            type: 'POST',
-            data:  {select_date:select_date},
-            cache: false,
-            success: function(data){
-                $('#div_my_month_knocks').html(data);
-            },
-            error: function(){
-                alert('oops! 出現錯誤了!');
-            }
-        });
+        reloadReport();
     });
 
     $("#month_select").change(function(){
-        var select_year = $("#year_select").val();
-        var select_month = $("#month_select").val();
-        var select_date = select_year + "," + select_month
-
-        $.ajax({
-            url: "/home/query_my_month_knocks",
-            type: 'POST',
-            data:  {select_date:select_date},
-            cache: false,
-            success: function(data){
-                $('#div_my_month_knocks').html(data);
-            },
-            error: function(){
-                alert('oops! 出現錯誤了!');
-            }
-        });
+        reloadReport();
     });
 
-
-    $("#btn_query_knock").click(function(){
-        var select_year = $("#year_select").val();
-        var select_month = $("#month_select").val();
-        var select_date = select_year + "," + select_month
-
-        $.ajax({
-            url: "/home/query_my_month_knocks",
-            type: 'POST',
-            data:  {select_date:select_date},
-            cache: false,
-            success: function(data){
-                $('#div_my_month_knocks').html(data);
-            },
-            error: function(){
-                alert('oops! 出現錯誤了!');
-            }
-        });
-    });
 
     function printScreen(div_my_month_knocks)    {
         var value = div_my_month_knocks.innerHTML;
@@ -107,5 +60,24 @@
         printPage.document.write("</PRE>");
         printPage.document.close("</BODY></HTML>");
     };
+
+    function reloadReport(){
+        var select_year = $("#year_select").val();
+        var select_month = $("#month_select").val();
+        var select_date = [select_year, select_month]
+
+        $.ajax({
+            url: "/home/my_house",
+            type: 'POST',
+            data:  {select_date:select_date},
+            cache: false,
+            success: function(data){
+                $('#div_my_month_knocks').html(data);
+            },
+            error: function(){
+                alert('oops! 出現錯誤了!');
+            }
+        });
+    }
 </script>
 
