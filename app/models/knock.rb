@@ -1,7 +1,7 @@
 class Knock < ActiveRecord::Base
   belongs_to :user
 
-  def self.m_clock_in(uid, description)
+  def self.m_clock_in(uid, description, ip)
     knocks = m_get_today_knock(uid)
 
     if knocks.blank?
@@ -10,11 +10,13 @@ class Knock < ActiveRecord::Base
       knock.log_date=  Time.now
       knock.user_id = uid
       knock.description = description
+      knock.in_ip=  ip
       knock.save
     else
       knock = knocks.first
       if knock.clock_in.nil?
         knock.clock_in= Time.now
+        knock.in_ip= ip
       end
       knock.description = description
       knock.save
@@ -23,7 +25,7 @@ class Knock < ActiveRecord::Base
     return knock
   end
 
-  def self.m_clock_out(uid, description)
+  def self.m_clock_out(uid, description, ip)
     knocks = m_get_today_knock(uid)
 
     if knocks.blank?
@@ -32,10 +34,12 @@ class Knock < ActiveRecord::Base
       knock.log_date=  Time.now
       knock.user_id = uid
       knock.description = description
+      knock.out_ip=  ip
       knock.save
     else
       knock = knocks.first
       knock.clock_out = Time.now
+      knock.out_ip= ip
       knock.user_id = uid
       knock.description = description
       knock.save

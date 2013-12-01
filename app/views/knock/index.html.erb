@@ -4,7 +4,7 @@
 
     <div id="talk" style="text-align: center">
         Hi ,
-        <%= @user_name %>     -      <%= request.env["HTTP_X_FORWARDED_FOR"] %> - <%=  request.env['HTTP_X_REAL_IP']   %>
+        <%= @user_name %>     -  Your IP:   <%= request.remote_ip %>
 
     </div>
 
@@ -19,7 +19,8 @@
       <div style="text-align: left;font-size:20px;margin-bottom: 10px;color: #4400CC">夢想與使命</div>
       <p>一、浩瀚世界裡，我們選擇孤苦貧困有天分的孩子， 他們是無辜並純潔的。若在他們人生舞台中注入跳動的音符， 必在快樂充實中找到真理與道路。
       <p>二、102年11月16日 至 103年11月16日，法律顧問由吳光明律師擔任。
-      <p> TIPS: 上班打卡，不管按幾次都只算第一次，下班打卡，但永遠會更新你記最後一次打卡紀錄
+      <p> TIPS: 上班打卡，不管按幾次都只算第一次，下班打卡，會一直更新你記最後一次打卡紀錄
+      （公司IP: 59.124.93.73）
 
     </div>
 

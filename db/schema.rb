@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131126164328) do
+ActiveRecord::Schema.define(version: 20131129093309) do
 
   create_table "knocks", force: true do |t|
     t.integer  "user_id"
     t.datetime "clock_in"
     t.datetime "clock_out"
     t.string   "description"
-    t.integer  "day",         limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "log_date"
+    t.string   "in_ip",       limit: 20
+    t.string   "out_ip",      limit: 20
   end
 
   add_index "knocks", ["log_date"], name: "index_knocks_on_log_date", using: :btree

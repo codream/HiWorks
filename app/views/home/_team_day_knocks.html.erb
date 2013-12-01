@@ -1,11 +1,12 @@
 
-<table border="2" style="width: 500px;margin: auto;border-collapse:collapse;">
+<table border="2" style="width: 700px;margin: auto;border-collapse:collapse;">
 
   <tr>
-    <td style="width: 20%">戰鬥員</td>
-    <td style="width: 20%">上班時間</td>
-    <td style="width: 20%">下班時間</td>
-    <td style="width: 40%">備註</td>
+    <td style="width: 11%">戰鬥員</td>
+    <td style="width: 7%">上班時間</td>
+    <td style="width: 7%">下班時間</td>
+    <td style="width: 45%">備註</td>
+    <td style="width: 20%"> IP </td>
   </tr>
 
   <% @team_day_knocks.each do |element| %>
@@ -26,6 +27,16 @@
               <%= element.knocks.first.description %>
           <% end %>
         </td>
+        <td style="font-size: 60%">
+          <% if !element.blank? && !element.knocks.first.in_ip.blank? %>
+              <%= element.knocks.first.in_ip %>
+          <% end %>
+          <% if !element.blank? && !element.knocks.first.out_ip.blank? %>
+              :<%= element.knocks.first.out_ip %>
+          <% end %>
+
+        </td>
+
       </tr>
   <% end %>
 

@@ -104,9 +104,9 @@
                 $("#month_select").val(12) ;
                 reflashDays( daysInMonth(12,iYear-1));
             }else{     //previous month
-                $("#day_select").val(daysInMonth(iMonth-1,iYear));
                 $("#month_select").val(iMonth-1) ;
                 reflashDays( daysInMonth(iMonth-1,iYear));
+                $("#day_select").val(daysInMonth(iMonth-1,iYear));
             }
         }else{  //just back 1 day
             $("#day_select").val(iDay-1);
