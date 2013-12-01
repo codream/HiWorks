@@ -43,7 +43,7 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  database: HiWorks_production
+  database: Hi_Works
   pool: 5
   username: root
   password: sqlsqlsql2
