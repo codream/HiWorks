@@ -16,8 +16,8 @@ class KnockController < ApplicationController
       end
     end
 
-    #@testing =''
-    #request.env.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
+    #@testing =''  #for header information list
+    #request.headers.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
 
   end
 
@@ -31,7 +31,7 @@ class KnockController < ApplicationController
 
   def clock_in
     description =  params[:description]
-    knock = Knock.m_clock_in(current_user.id, description)
+    knock = Knock.m_clock_in(current_user.id, description, request.remote_ip )
 
     respond_to do |format|
       temp = '您的上班打卡時間為:' + knock.clock_in.strftime('%Y-%m-%d %H:%M:%S')
@@ -48,7 +48,7 @@ class KnockController < ApplicationController
   def clock_out
 
     description =  params[:description]
-    knock = Knock.m_clock_out(current_user.id, description)
+    knock = Knock.m_clock_out(current_user.id, description, request.remote_ip )
 
     respond_to do |format|
       if knock.blank?  #no clock in data
