@@ -16,12 +16,14 @@
             border:solid 5px; border-color:#2DA2BF; border-width: 4px 4px 4px 4px;
             outline:solid 2px; outline-color:#2DA2BF; outline-offset: -7px ;border-radius: 5px 5px 5px 5px">
       <ol>
-      <div style="text-align: left;font-size:20px;margin-bottom: 10px;color: #4400CC"><%=@ws[1,1] %></div>
-      <% for row in 2..@ws.num_rows %>
-              <li><%= @ws[row,1] %></li>
+      <div style="text-align: left;font-size:20px;margin-bottom: 10px;color: #4400CC"><%=$my_bulletin[1,1] %></div>
+      <% for row in 2..$my_bulletin.num_rows %>
+              <li><%= $my_bulletin[row,1] %></li>
       <% end %>
       </ol>
     </div>
+    <img id="reloadBulletin" src="/images/reload.png" alt="Hi! " style="width:20px; border:0;" onmouseover="this.style.cursor='pointer';this.style.cursor='hand'" onmouseout="this.style.cursor='default'"/>
+
 
     <div style="margin-top: 15px;">
       <!--<label style="float: left;">打卡備註:</label>-->
@@ -40,11 +42,23 @@
 <script>
 
     updateTimes();
-
     $(window).load(function(){
         var iTimer = setInterval(updateTimes,60000);
     });
 
+    $("#reloadBulletin").click(function(){
+        $.ajax({
+            url: "/knock/reload_bulletin",
+            cache: false,
+            success: function(text){
+                alert(text);
+                location.reload();
+            }
+        });
+    });
+
+
+    // Clock_IN post and process
     $("#btn_clock_in").click(function(){
         var des = $("#description").val();
 

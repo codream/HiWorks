@@ -22,20 +22,38 @@ class KnockController < ApplicationController
     require 'rubygems'
     require 'google_drive'
 
-# Logs in.
-# You can also use OAuth. See document of
-# GoogleDrive.login_with_oauth for details.
-    session = GoogleDrive.login('kentlin8@gmail.com', 'kent4567')
-
-# First worksheet of
-# https://docs.google.com/spreadsheet/ccc?key=pz7XtlQC-PYx-jrVMJErTcg
-    @ws = session.spreadsheet_by_key('0AjhbVFj0RYrOdEpoSkdDUXpfRk93UGpWbHRxcjltTFE').worksheets[0]
-
+    if  $my_bulletin.nil?
+      # Logs in.# You can also use OAuth. See document of GoogleDrive.login_with_oauth for details.
+      google_session =  GoogleDrive.login('streams.in.taipei@gmail.com', 'koala4_fiat')
+      # First worksheet of https://docs.google.com/spreadsheet/ccc?key=pz7XtlQC-PYx-jrVMJErTcg
+      $my_bulletin =  google_session.spreadsheet_by_key('0AjhbVFj0RYrOdEpoSkdDUXpfRk93UGpWbHRxcjltTFE').worksheets[0]
+    end
 
     #@testing =''  #for header information list
     #request.headers.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
 
   end
+
+  def reload_bulletin
+    begin
+    require 'rubygems'
+    require 'google_drive'
+    google_session =  GoogleDrive.login('streams.in.taipei@gmail.com', 'koala4_fiat')
+    $my_bulletin =  google_session.spreadsheet_by_key('0AjhbVFj0RYrOdEpoSkdDUXpfRk93UGpWbHRxcjltTFE').worksheets[0]
+    rescue  => e
+      error_message = e.to_s
+    end
+
+    respond_to do |format|
+      if error_message.nil?
+        format.any { render :text => 'Bulletin Reload!'}
+      else
+        format.any { render :text => error_message}
+      end
+    end
+
+  end
+
 
   def get_time
     now = Time.now

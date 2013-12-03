@@ -6,6 +6,7 @@ HiWorks::Application.routes.draw do
   get "knock/test"
   get "knock/index"  ,:as => 'knock_index'
   get "knock/get_time"
+  get 'knock/reload_bulletin'
   post "knock/clock_in"
   post "knock/clock_out"
 
