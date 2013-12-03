@@ -3,6 +3,7 @@ HiWorks::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
   root :to => "knock#index"
 
+  get "knock/test"
   get "knock/index"  ,:as => 'knock_index'
   get "knock/get_time"
   post "knock/clock_in"

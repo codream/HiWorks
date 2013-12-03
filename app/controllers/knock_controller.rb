@@ -1,8 +1,11 @@
+
+
 class KnockController < ApplicationController
   #before_action :auth_user_render_template, :only => [ :clock_in, :clock_out, :modify_clock_in, :knock_records]
   before_action :auth_user_render_json, :only => [ :clock_in, :clock_out]
 
   # @return [Object]
+
   def index
     if current_user.blank?
       @user_name = ''
@@ -15,6 +18,19 @@ class KnockController < ApplicationController
         @user_note = today_knock.first.description
       end
     end
+
+    require 'rubygems'
+    require 'google_drive'
+
+# Logs in.
+# You can also use OAuth. See document of
+# GoogleDrive.login_with_oauth for details.
+    session = GoogleDrive.login('kentlin8@gmail.com', 'kent4567')
+
+# First worksheet of
+# https://docs.google.com/spreadsheet/ccc?key=pz7XtlQC-PYx-jrVMJErTcg
+    @ws = session.spreadsheet_by_key('0AjhbVFj0RYrOdEpoSkdDUXpfRk93UGpWbHRxcjltTFE').worksheets[0]
+
 
     #@testing =''  #for header information list
     #request.headers.each   { | k, v| @testing = @testing+" === #{k}:#{v}" }
