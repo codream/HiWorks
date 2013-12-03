@@ -12,16 +12,16 @@
     </td>
   </tr>
   <tr>
-    <td style="width: 8%">日期</td>
+    <td style="width: 7%">日期</td>
     <td style="width: 7%">星期</td>
-    <td style="width: 10%">上班時間</td>
-    <td style="width: 10%">下班時間</td>
+    <td style="width: 7%">上班時間</td>
+    <td style="width: 7%">下班時間</td>
     <td style="width: 45%">備註
       <img id="editNote"  src="/images/Text-Edit-icon.png" onmouseover="this.style.cursor='pointer';this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
              style="width:20px; border:0; cursor:hand;" alt="Click to edit other note! And press ENTER after you editing." />
 
     </td>
-    <td style="width: 20%"> IP </td>
+    <td style="width: 27%"> IP </td>
 
   </tr>
 
@@ -41,13 +41,13 @@
             </td>
             <td style="text-align:left">
               <% if !element.blank? && !element.description.blank? %>
-                  <input type="text"  width="100%"  name="<%= @year%>-<%= @month%>-<%= index + 1 %>" value="<%=element.description%>  ">
+                  <input type="text"  style="width:100%"  name="<%= @year%>-<%= @month%>-<%= index + 1 %>" value="<%=element.description%>  ">
                   <%else%>
                   <input type="text"  value="" style="display: none" name="<%= @year%>-<%= @month%>-<%= index + 1 %>">
               <% end %>
 
             </td>
-            <td style="font-size: 60%">
+            <td style="font-size: 50%">
               <% if !element.blank? && !element.in_ip.blank? %>
                    <%= element.in_ip %>
               <% end %>
