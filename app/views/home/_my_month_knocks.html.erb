@@ -41,7 +41,7 @@
             </td>
             <td style="text-align:left">
               <% if !element.blank? && !element.description.blank? %>
-                  <textarea width="100%"  name="<%= @year%>-<%= @month%>-<%= index + 1 %>"> <%=element.description%> </textarea>
+                  <input type="text"  width="100%"  name="<%= @year%>-<%= @month%>-<%= index + 1 %>" value="<%=element.description%>  ">
                   <%else%>
                   <input type="text"  value="" style="display: none" name="<%= @year%>-<%= @month%>-<%= index + 1 %>">
               <% end %>
