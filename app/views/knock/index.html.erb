@@ -49,11 +49,14 @@
     $("#reloadBulletin").click(function(){
         $.ajax({
             url: "/knock/reload_bulletin",
-            cache: false,
-            success: function(text){
-                alert(text);
-                location.reload();
-            }
+            cache: false
+        })
+        .done(function(text) {
+            alert(text);
+            location.reload();
+        })
+        .fail(function(text) {
+            alertMSG( "error: Please contact MIS!" );
         });
     });
 

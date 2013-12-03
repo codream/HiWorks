@@ -24,7 +24,7 @@ class KnockController < ApplicationController
 
     if  $my_bulletin.nil?
       # Logs in.# You can also use OAuth. See document of GoogleDrive.login_with_oauth for details.
-      google_session =  GoogleDrive.login('streams.in.taipei@gmail.com', 'koala4_fiat')
+      google_session =  GoogleDrive.login('streams.in.taipei@gmail.com', HiWorks::Application::Google_Driver_Login_P)
       # First worksheet of https://docs.google.com/spreadsheet/ccc?key=pz7XtlQC-PYx-jrVMJErTcg
       $my_bulletin =  google_session.spreadsheet_by_key('0AjhbVFj0RYrOdEpoSkdDUXpfRk93UGpWbHRxcjltTFE').worksheets[0]
     end
@@ -38,7 +38,7 @@ class KnockController < ApplicationController
     begin
     require 'rubygems'
     require 'google_drive'
-    google_session =  GoogleDrive.login('streams.in.taipei@gmail.com', 'koala4_fiat')
+    google_session =  GoogleDrive.login('streams.in.taipei@gmail.com', HiWorks::Application::Google_Driver_Login_P)
     $my_bulletin =  google_session.spreadsheet_by_key('0AjhbVFj0RYrOdEpoSkdDUXpfRk93UGpWbHRxcjltTFE').worksheets[0]
     rescue  => e
       error_message = e.to_s
