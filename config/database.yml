@@ -18,7 +18,7 @@
 #  password: yun123
 #  socket: /var/run/mysqld/mysqld.sock
 
-  development:
+development:
     adapter: mysql2
     encoding: utf8
     database: hi_work
@@ -26,7 +26,7 @@
     pool: 5
     username: root
     password: asdf
-#    socket: /var/run/mysqld/mysqld.sock
+    socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -40,12 +40,12 @@ test:
     username: root
     password: asdf
 
-#production:
-#    adapter: mysql2
-#    encoding: utf8
-#    database: hi_work
-#    host: 192.168.2.199
-#    pool: 5
-#    username: root
-#    password: asdf
+production:
+    adapter: mysql2
+    encoding: utf8
+    database: hi_work
+    pool: 5
+    username: root
+    password: sqlsqlsql2
+
   #socket: /var/run/mysqld/mysqld.sock
