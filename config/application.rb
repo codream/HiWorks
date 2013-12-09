@@ -21,6 +21,7 @@ module HiWorks
     config.active_record.default_timezone = :local
     config.i18n.default_locale = 'zh-TW'
 
+    # 更改標題部分的Google Drive 登入密碼
     Google_Driver_Login_P =  'xxxxxxx'
 
 
