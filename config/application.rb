@@ -21,7 +21,7 @@ module HiWorks
     config.active_record.default_timezone = :local
     config.i18n.default_locale = 'zh-TW'
 
-    Google_Driver_Login_P =  'koala4_fiat'
+    Google_Driver_Login_P =  'xxxxxxx'
 
 
 
